@@ -1,9 +1,9 @@
 FROM nginx:alpine
 
 RUN apk add --update --no-cache \
-        openssl
+        openssl \
+        curl
 
-COPY generate_self_signed_ssl.sh /usr/local/bin/generate_self_signed_ssl.sh
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 443
