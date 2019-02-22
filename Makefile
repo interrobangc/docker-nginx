@@ -7,7 +7,11 @@ MY_PWD = $(shell pwd)
 all: build
 
 build:
-	docker build -t $(IMAGE_BASE)/$(IMAGE) -f $(MY_PWD)/Dockerfile $(MY_PWD)
+ifdef NOCACHE
+	docker build --no-cache -t $(IMAGE_BASE)/$(IMAGE) .
+else
+	docker build -t $(IMAGE_BASE)/$(IMAGE) .
+endif
 
 run:
 	docker run --rm -p 80:80 -p 443:443 --name $(IMAGE_BASE)-$(IMAGE) $(IMAGE_BASE)/$(IMAGE)

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-if [ -s /etc/ssl/ssl.crt ] || [ -s /etc/ssl/cert.pem ] || [ -s /etc/ssl/key.pem ] || [ -n "${SKIP_SSL_GENERATE}" ]; then
+if [ -s /etc/ssl/ssl.crt ] || [ -s /etc/ssl/key.pem ] || [ -n "${SKIP_SSL_GENERATE}" ]; then
     echo "Skipping SSL certificate generation"
 else
     echo "Generating self-signed certificate"
@@ -8,7 +8,7 @@ else
     mkdir -p /etc/ssl
     cd /etc/ssl
 
-    openssl genrsa -des3 -passout pass:x -out key.pem 2048
+    openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out key.pem
 
     cp key.pem key.pem.orig
 
